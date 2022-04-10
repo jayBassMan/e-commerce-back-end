@@ -67,11 +67,11 @@ router.delete('/:id', (req, res) => {
       id: req.params.id,
     },
   })
-  .then((updatedCategory) => {
+  .then((removedCategory) => {
     res.json(`Category has been removed from database`)
   })
   .catch((error) => {
-    res.json(err);
+    res.json(error);
   });
 });
 

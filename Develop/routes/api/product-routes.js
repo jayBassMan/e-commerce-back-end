@@ -4,7 +4,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   await Product.findAll({
@@ -21,8 +21,8 @@ router.get('/', (req, res) => {
       },
     ],
   })
-  .then((productData) => {
-    res.json(productData);
+  .then((prodData) => {
+    res.json(prodData);
   })
   .catch((error) => {
     res.json(error);
@@ -68,21 +68,21 @@ router.post('/', (req, res) => {
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
+        const prodTagIdArray = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
             tag_id,
           };
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+        return ProductTag.bulkCreate(prodTagIdArray);
       }
       // if no product tags, just respond
       res.status(200).json(product);
     })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
+    .then((prodTagIds) => res.status(200).json(prodTagIds))
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json(error);
     });
 });
 
@@ -96,14 +96,14 @@ router.put('/:id', (req, res) => {
   })
     .then((product) => {
       // find all associated tags from ProductTag
-      return ProductTag.findAll({ where: { product_id: req.params.id } });
+      return ProductTag.findAll({where: {product_id: req.params.id} });
     })
-    .then((productTags) => {
+    .then((prodTags) => {
       // get list of current tag_ids
-      const productTagIds = productTags.map(({ tag_id }) => tag_id);
+      const prodTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
-      const newProductTags = req.body.tagIds
-        .filter((tag_id) => !productTagIds.includes(tag_id))
+      const newProdTags = req.body.tagIds
+        .filter((tag_id) => !prodTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
             product_id: req.params.id,
@@ -111,17 +111,17 @@ router.put('/:id', (req, res) => {
           };
         });
       // figure out which ones to remove
-      const productTagsToRemove = productTags
+      const prodTagsRemove = prodTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
 
       // run both actions
       return Promise.all([
-        ProductTag.destroy({ where: { id: productTagsToRemove } }),
-        ProductTag.bulkCreate(newProductTags),
+        ProductTag.destroy({ where: { id: prodTagsRemove } }),
+        ProductTag.bulkCreate(newProdTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then((updatedProdTags) => res.json(updatedProdTags))
     .catch((err) => {
       // console.log(err);
       res.status(400).json(err);

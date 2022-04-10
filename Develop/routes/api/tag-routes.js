@@ -3,7 +3,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
     await Tag.findAll({
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
-  Tag.findByPk(req.params.dictionary, {
+  Tag.findByPk(req.params.id, {
     include: [{
       model: Product,
       attributes: ["id", "product_name", "price", "stock", "category_id"],
@@ -37,9 +37,7 @@ router.get('/:id', (req, res) => {
     res.json(error)
   })
   // be sure to include its associated Product data
-
 });
-
 
 router.post('/', (req, res) => {
   // create a new tag
@@ -81,7 +79,7 @@ router.delete('/:id', (req, res) => {
   .then((quantityRemoved) => {
     res.json(`${quantityRemoved} has been moved from the database`);
   })
-  .catch((errro) => {
+  .catch((error) => {
     res.json(error)
   })
 });
