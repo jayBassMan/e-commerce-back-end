@@ -34,7 +34,9 @@ All that's missing to make this a complete E-Commerce website is a simple front-
 To install and set up the application, run:
 
 ```sh
-npm install employee-tracker
+npm init -y
+npm i express
+npm i
 ```
 
 You will also need to place a .env file in the root directory of the project, in order to connect to your MySQL database. Here's an example:
@@ -42,9 +44,9 @@ You will also need to place a .env file in the root directory of the project, in
 file: .env
 
 ```
-DB_NAME=library_db
-DB_PASSWORD=
-DB_USER=root
+DB_NAME= "ecommerce_db"
+DB_PASSWORD= " "
+DB_USER= "root"
 ```
 
 ---
@@ -70,10 +72,10 @@ The server is running, now you can make requests to it through your desired meth
 
 ## **Built With**
 
-- Node.js**](https://nodejs.org/en/about/)
+- [Node.js](https://nodejs.org/en/about/)
 - [Sequelize](https://www.npmjs.com/package/sequelize)
 - [Express.js](https://www.npmjs.com/package/express)
-- Visual Studio Code**](https://code.visualstudio.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 ---
 
