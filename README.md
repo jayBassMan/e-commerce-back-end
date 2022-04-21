@@ -23,7 +23,7 @@ All that's missing to make this a complete E-Commerce website is a simple front-
   - [**Installation**](#installation)
   - [**Usage**](#usage)
   - [**Built With**](#built-with)
-  - [**Demonstration Video**](#demonstration-video)
+  - [Demonstration video](#demonstration-video)
   - [**Contributing**](#contributing)
   - [**License**](#license)
 
@@ -79,13 +79,15 @@ The server is running, now you can make requests to it through your desired meth
 
 ---
 
-## **Demonst
+## Demonstration video
 
 https://user-images.githubusercontent.com/67285232/164349033-c1336a60-8a23-4de5-aa6b-fb5b3719c40a.mp4
 
 ration Video**
 
 ## **Contributing**
+
+Phil loy
 
 ## **License**
 
